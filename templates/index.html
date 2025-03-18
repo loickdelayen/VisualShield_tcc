@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Câmera e Alertas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Câmera -->
+        <div class="camera">
+            <h2>Câmera</h2>
+            <img id="camera_feed" src="{{ url_for('camera') }}" alt="Câmera">
+        </div>
+
+        <!-- Histórico de Alertas -->
+        <div class="alerts">
+            <h2>Histórico de Alertas</h2>
+            <ul id="alert_list">
+                <!-- Os logs de alertas serão inseridos aqui via JavaScript -->
+            </ul>
+        </div>
+
+        <!-- Gráfico de Alertas -->
+        <div class="chart">
+            <h2>Gráfico de Alertas</h2>
+            <label for="periodo">Escolha o Período:</label>
+            <select id="periodo">
+                <option value="Mensal">Mensal</option>
+                <option value="Semanal">Semanal</option>
+            </select>
+            <canvas id="alertChart"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
