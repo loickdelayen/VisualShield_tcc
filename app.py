@@ -42,11 +42,16 @@ def gen_camera():
         ret, frame = cap.read()
         if not ret:
             break
+
+        # Corrige a imagem espelhada, aplicando um flip horizontal
+        frame = cv2.flip(frame, 1)
+
         ret, jpeg = cv2.imencode('.jpg', frame)
         if ret:
             frame = jpeg.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
 
 @app.route('/camera')
 def camera():
