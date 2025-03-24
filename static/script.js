@@ -63,7 +63,26 @@ document.addEventListener('DOMContentLoaded', function () {
         updateChart(selectedPeriod);
     });
 
-    // Inicialização do dashboard
+    // Função para verificar se a câmera está funcionando
+    function checkCameraStatus() {
+        const cameraFeed = document.getElementById('camera_feed');
+        const cameraMessage = document.getElementById('camera-message');
+
+        // Tenta acessar a câmera, se não conseguir, exibe a mensagem de erro
+        if (!cameraFeed.complete || cameraFeed.naturalWidth === 0) {
+            cameraMessage.style.display = 'block';  // Exibe a mensagem de erro
+        } else {
+            cameraMessage.style.display = 'none';   // Esconde a mensagem de erro
+        }
+    }
+
+    // Inicializa a página
     updateAlerts();
     updateChart('Mensal');
+    checkCameraStatus(); // Verifica o status da câmera
+
+    // Se a câmera estiver funcionando, ele tentará novamente a cada 2 segundos
+    setInterval(checkCameraStatus, 2000);
 });
+
+

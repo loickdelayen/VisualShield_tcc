@@ -30,10 +30,34 @@ h2 {
     margin-bottom: 10px;
 }
 
+.camera {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
 #camera_feed {
     width: 100%;
     height: auto;
 }
+
+#camera-container {
+    position: relative;
+}
+
+.camera-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+    color: #ff4d4d; /* Cor vermelha para destacar */
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    border-radius: 8px;
+    display: none; /* Escondido inicialmente */
+}
+
 
 #alert_list {
     list-style-type: none;

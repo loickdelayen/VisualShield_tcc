@@ -11,7 +11,10 @@
         <!-- Câmera -->
         <div class="camera">
             <h2>Câmera</h2>
-            <img id="camera_feed" src="{{ url_for('camera') }}" alt="Câmera">
+            <div id="camera-container">
+                <img id="camera_feed" src="{{ url_for('camera') }}" alt="Câmera">
+                <div id="camera-message" class="camera-message">Câmera Desconectada</div>
+            </div>
         </div>
 
         <!-- Histórico de Alertas -->
