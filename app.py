@@ -1,11 +1,12 @@
 from flask import Flask, render_template, jsonify, Response
 import cv2
 import mysql.connector
-from datetime import datetime
+import io
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 
-# Configurações do banco de dados MySQL
+# Configurações do banco de dados
 def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
@@ -14,17 +15,7 @@ def get_db_connection():
         database="visualshield"
     )
 
-# Função para pegar os logs do banco de dados
-def get_alerts():
-    db = get_db_connection()
-    cursor = db.cursor(dictionary=True)
-    cursor.execute("SELECT data_hora, erro, epi_faltando FROM logs_camera WHERE erro IS NOT NULL ORDER BY data_hora DESC LIMIT 10")
-    logs = cursor.fetchall()
-    cursor.close()
-    db.close()
-    return logs
-
-# Função para gerar gráfico (método simplificado para JSON)
+# Obtém logs do banco de dados para o gráfico
 @app.route('/get_logs')
 def get_logs():
     db = get_db_connection()
@@ -35,29 +26,61 @@ def get_logs():
     db.close()
     return jsonify(logs)
 
-# Captura da câmera (usando OpenCV)
+# Captura de câmera
 def gen_camera():
     cap = cv2.VideoCapture(0)
     while True:
         ret, frame = cap.read()
         if not ret:
             break
-
-        # Corrige a imagem espelhada, aplicando um flip horizontal
         frame = cv2.flip(frame, 1)
-
         ret, jpeg = cv2.imencode('.jpg', frame)
         if ret:
-            frame = jpeg.tobytes()
             yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-
+                   b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n\r\n')
 
 @app.route('/camera')
 def camera():
     return Response(gen_camera(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# Rota para a página principal do dashboard
+# Gerar gráfico usando Matplotlib
+@app.route('/grafico.png')
+def grafico():
+    db = get_db_connection()
+    cursor = db.cursor()
+    cursor.execute("SELECT COUNT(*), MONTH(data_hora) FROM logs_camera WHERE erro IS NOT NULL GROUP BY MONTH(data_hora)")
+    logs = cursor.fetchall()
+    cursor.close()
+    db.close()
+
+    # Verifica se há dados no banco
+    if not logs:
+        logs = [(0, 1)]  # Adiciona um valor fictício para evitar erro
+
+    # Preparando os dados para o gráfico
+    meses = [f"Mês {item[1]}" for item in logs]
+    valores = [item[0] for item in logs]
+
+    fig, ax = plt.subplots(figsize=(6, 3))
+    ax.bar(meses, valores, color='blue', alpha=0.7, label="Número de Alertas")
+
+    ax.set_title("Número de Alertas por Mês")
+    ax.set_xlabel("Mês")
+    ax.set_ylabel("Quantidade")
+    ax.legend()
+    ax.grid(axis='y', linestyle='--', alpha=0.7)
+
+    # Ajusta os rótulos do eixo X para evitar sobreposição
+    plt.xticks(rotation=45)
+
+    # Salvar o gráfico na memória
+    img = io.BytesIO()
+    plt.savefig(img, format='png', bbox_inches='tight')
+    img.seek(0)
+
+    return Response(img.getvalue(), mimetype='image/png')
+
+# Página principal
 @app.route('/')
 def index():
     return render_template('index.html')
