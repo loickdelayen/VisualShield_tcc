@@ -7,7 +7,27 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <header>
+        <img src="path/to/logo.png" alt="Logo" />
+        <h1>Nome da Marca</h1>
+    </header>
     <div class="container">
+        <footer>
+            <p>&copy; 2023 Nome da Marca. Todos os direitos reservados.</p>
+        </footer>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Câmera e Alertas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <footer>
+        <p>&copy; 2023 Nome da Marca. Todos os direitos reservados.</p>
+    </footer>
+
         <!-- Câmera -->
         <div class="camera">
             <h2>Câmera</h2>
@@ -20,9 +40,19 @@
         <!-- Histórico de Alertas -->
         <div class="alerts">
             <h2>Histórico de Alertas</h2>
-            <ul id="alert_list">
-                <!-- Os logs de alertas serão inseridos aqui via JavaScript -->
-            </ul>
+            <table id="alert_table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Tipo de Alerta</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Os logs de alertas serão inseridos aqui via JavaScript -->
+                </tbody>
+            </table>
+
         </div>
 
         <!-- Gráfico de Alertas -->

@@ -4,10 +4,25 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column; /* Allow vertical stacking */
     height: 100vh;
     background-color: #f4f4f9;
+}
+
+/* Estilos do cabeçalho */
+header {
+    display: flex; /* Usar flexbox para layout horizontal */
+    align-items: center; /* Alinha verticalmente ao centro */
+    justify-content: space-between; /* Espaça os itens horizontalmente */
+    background-color: #4CAF50; /* Cor de fundo do cabeçalho */
+    color: white; /* Cor do texto */
+    padding: 10px; /* Espaçamento interno */
+    width: 100%; /* Largura total */
+    position: fixed; /* Fixa o cabeçalho no topo */
+    top: 0; /* Posiciona no topo da página */
+    left: 0; /* Alinha à esquerda */
+    z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
+    height: 60px; /* Define uma altura fixa para o cabeçalho */
 }
 
 /* Layout usando CSS Grid */
@@ -17,8 +32,11 @@ body {
     grid-template-rows: 50vh 50vh; /* Duas linhas dividindo a tela pela metade */
     gap: 10px;
     width: 90%;
-    height: 100vh;
+    max-width: 1200px; /* Define uma largura máxima para centralizar o layout */
+    height: calc(100vh - 60px); /* Ajusta a altura para não sobrepor o cabeçalho */
+    margin: 80px auto 0; /* Adiciona espaço para o cabeçalho e centraliza */
 }
+
 
 /* Ajusta cada seção */
 .camera {
@@ -93,145 +111,29 @@ h2 {
     display: none; /* Inicialmente escondida */
 }
 
-/* Estilos da lista de alertas */
-#alert_list {
-    list-style-type: none;
-    padding: 0;
-}
-/* Estilos gerais */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f9;
+/* Estilos do rodapé */
+footer {
+    background-color: #333; /* Cor de fundo do rodapé */
+    color: white; /* Cor do texto */
+    text-align: center; /* Centraliza o texto */
+    padding: 10px; /* Espaçamento interno */
+    position: relative; /* Para posicionamento */
+    bottom: 0; /* Fixa o rodapé na parte inferior */
+    width: 100%; /* Largura total */
 }
 
-/* Layout usando CSS Grid */
-.container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Duas colunas de tamanho igual */
-    grid-template-rows: 50vh 50vh; /* Duas linhas dividindo a tela pela metade */
-    gap: 10px;
-    width: 90%;
-    height: 100vh;
+/* Estilos da tabela de alertas */
+#alert_table {
+    width: 100%; /* Largura total da tabela */
+    border-collapse: collapse; /* Remove espaços entre as células */
 }
 
-/* Ajusta cada seção */
-.camera {
-    grid-column: 1 / 2; /* Ocupa a primeira coluna */
-    grid-row: 1 / 2; /* Ocupa a primeira linha */
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+#alert_table th, #alert_table td {
+    border: 1px solid #ddd; /* Borda das células */
+    padding: 8px; /* Espaçamento interno das células */
+    text-align: left; /* Alinhamento do texto */
 }
 
-.alerts {
-    grid-column: 2 / 3; /* Ocupa a segunda coluna */
-    grid-row: 1 / 2; /* Ocupa a primeira linha */
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-
-.chart {
-    display: flex;
-    flex-direction: column;
-    height: 400px;
-    flex-wrap: nowrap;
-    align-content: center;
-    align-items: center;
-}
-
-#alertChart {
-    width: 100% !important;
-    height: 300px !important; 
-}
-
-#chart-container {
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-}
-.canvas {
-    position: relative;
-    width: auto !important;
-    height: auto !important;
-}
-
-/* Estilos dos títulos */
-h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-}
-
-/* Estilos da câmera */
-#camera-container {
-    position: relative; /* Garante que os elementos filhos usem esta área como referência */
-    width: 100%;
-    height: 100%;
-}
-
-#camera_feed {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-
-/* Mensagem de erro da câmera */
-.camera-message {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    text-align: center;
-    font-size: 1.5em;
-    color: #ff4d4d;
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 10px;
-    border-radius: 8px;
-    display: none; /* Inicialmente escondida */
-}
-
-/* Estilos da lista de alertas */
-#alert_list {
-    list-style-type: none;
-    padding: 0;
-}
-
-#alert_list li {
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #e9e9e9;
-    border-radius: 5px;
-}
-
-/* Estilos do select */
-select {
-    padding: 10px;
-    font-size: 1em;
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-#alert_list li {
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #e9e9e9;
-    border-radius: 5px;
-}
-
-/* Estilos do select */
-select {
-    padding: 10px;
-    font-size: 1em;
-    margin-bottom: 20px;
-    width: 100%;
+#alert_table th {
+    background-color: #f2f2f2; /* Cor de fundo do cabeçalho da tabela */
 }

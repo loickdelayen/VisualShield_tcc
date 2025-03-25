@@ -11,7 +11,7 @@ def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        password="1234",
+        password="12345678",
         database="visualshield"
     )
 
@@ -76,7 +76,21 @@ def grafico():
     # Salvar o gráfico na memória
     
 
+# Rota para obter alertas com log
+@app.route('/get_alerts')
+def get_alerts():
+    db = get_db_connection()
+    cursor = db.cursor()
+    cursor.execute("SELECT data_hora, erro, epi_faltando FROM logs_camera WHERE erro IS NOT NULL")
+    alerts = cursor.fetchall()
+    print("Fetched alerts:", alerts)  # Log fetched alerts for debugging
+    cursor.close()
+    db.close()
+    return jsonify([{'data_hora': alert[0], 'erro': alert[1], 'epi_faltando': alert[2]} for alert in alerts])
+
+
 # Página principal
+
 @app.route('/')
 def index():
     return render_template('index.html')
