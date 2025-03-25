@@ -74,11 +74,7 @@ def grafico():
     plt.xticks(rotation=45)
 
     # Salvar o gráfico na memória
-    img = io.BytesIO()
-    plt.savefig(img, format='png', bbox_inches='tight')
-    img.seek(0)
-
-    return Response(img.getvalue(), mimetype='image/png')
+    
 
 # Página principal
 @app.route('/')

@@ -20,57 +20,61 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
 
+
     // Função para atualizar o gráfico de alertas
     let alertChart = null; // Variável global para armazenar o gráfico
 
-function updateChart(periodo) {
-    fetch('/get_logs')
-        .then(response => response.json())
-        .then(data => {
-            const labels = data.map(item => periodo === 'Mensal' ? `Mês ${item[1]}` : `Semana ${item[1]}`);
-            const values = data.map(item => item[0]);
-
-            const ctx = document.getElementById('alertChart').getContext('2d');
-
-            // Se já existir um gráfico, destrói antes de criar outro
-            if (alertChart) {
-                alertChart.destroy();
-            }
-
-            alertChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Número de Alertas',
-                        data: values,
-                        borderColor: 'rgb(75, 192, 192)',
-                        fill: false
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        x: {
-                            title: {
-                                display: true,
-                                text: periodo
-                            }
-                        },
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'Número de Erros'
+    function updateChart(periodo) {
+        fetch('/get_logs')
+            .then(response => response.json())
+            .then(data => {
+                const labels = data.map(item => periodo === 'Mensal' ? `Mês ${item[1]}` : `Semana ${item[1]}`);
+                const values = data.map(item => item[0]);
+    
+                const ctx = document.getElementById('alertChart').getContext('2d');
+    
+                // Destroi o gráfico anterior antes de criar outro
+                if (alertChart) {
+                    alertChart.destroy();
+                }
+    
+                alertChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Número de Alertas',
+                            data: values,
+                            borderColor: 'rgb(75, 192, 192)',
+                            borderWidth: 2,
+                            pointRadius: 5,
+                            pointBackgroundColor: 'rgb(75, 192, 192)',
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: periodo
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Número de Erros'
+                                }
                             }
                         }
                     }
-                }
-            });
-        })
-        .catch(error => console.error('Erro ao gerar gráfico:', error));
-}
-
-
+                });
+            })
+            .catch(error => console.error('Erro ao gerar gráfico:', error));
+    }
+    
     // Evento de mudança no select para alterar o período do gráfico
     document.getElementById('periodo').addEventListener('change', function () {
         const selectedPeriod = this.value;
