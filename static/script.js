@@ -45,10 +45,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         datasets: [{
                             label: 'Número de Alertas',
                             data: values,
-                            borderColor: 'rgb(75, 192, 192)',
+                            borderColor: 'rgb(255, 92, 92)',
                             borderWidth: 2,
                             pointRadius: 5,
-                            pointBackgroundColor: 'rgb(75, 192, 192)',
+                            pointBackgroundColor: 'rgb(255, 97, 97)',
                             fill: false
                         }]
                     },
