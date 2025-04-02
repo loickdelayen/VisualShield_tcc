@@ -7,6 +7,34 @@ body {
     flex-direction: column; /* Allow vertical stacking */
     height: 100vh;
     background-color: #f4f4f9;
+    transition: background-color 0.5s, color 0.5s; /* Transition for dark mode */
+}
+
+/* Estilos do botão de tema */
+.theme-toggle-container {
+    margin: 20px 0; /* Espaçamento acima e abaixo do botão */
+    text-align: center; /* Centraliza o botão */
+}
+
+#theme-toggle {
+    padding: 10px 20px; /* Espaçamento interno do botão */
+    font-size: 16px; /* Tamanho da fonte */
+    background-color: #3a3939; /* Cor de fundo do botão */
+    color: white; /* Cor do texto do botão */
+    border: none; /* Remove borda padrão */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+}
+
+#theme-toggle:hover {
+    background-color: #333131; /* Cor de fundo ao passar o mouse */
+}
+
+
+.dark-theme {
+    background-color: #121212;
+    color: #ffffff;
 }
 
 /* Estilos do cabeçalho */
@@ -16,13 +44,11 @@ header {
     justify-content: space-between; /* Espaça os itens horizontalmente */
     background-color: #db1818; /* Cor de fundo do cabeçalho */
     color: white; /* Cor do texto */
-    padding: 10px; /* Espaçamento interno */
-    width: 100%; /* Largura total */
-    position: fixed; /* Fixa o cabeçalho no topo */
-    top: 0; /* Posiciona no topo da página */
-    left: 0; /* Alinha à esquerda */
-    z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
-    height: 60px; /* Define uma altura fixa para o cabeçalho */
+    transition: background-color 0.5s; /* Transition for dark mode */
+}
+
+.dark-theme header {
+    background-color: #1f1f1f; /* Dark header background */
 }
 
 /* Layout usando CSS Grid */
@@ -37,12 +63,17 @@ header {
     margin: 80px auto 0; /* Adiciona espaço para o cabeçalho e centraliza */
 }
 
-
 /* Ajusta cada seção */
 .camera {
     grid-column: 1 / 2; /* Ocupa a primeira coluna */
     grid-row: 1 / 2; /* Ocupa a primeira linha */
     background-color: #fff;
+    transition: background-color 0.5s, color 0.5s; /* Transition for dark mode */
+}
+
+.dark-theme .camera {
+    background-color: #1e1e1e; /* Dark background for camera section */
+    color: #ffffff; /* White text for dark mode */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -52,6 +83,12 @@ header {
     grid-column: 2 / 3; /* Ocupa a segunda coluna */
     grid-row: 1 / 2; /* Ocupa a primeira linha */
     background-color: #fff;
+    transition: background-color 0.5s, color 0.5s; /* Transition for dark mode */
+}
+
+.dark-theme .alerts {
+    background-color: #1e1e1e; /* Dark background for alerts section */
+    color: #ffffff; /* White text for dark mode */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -61,54 +98,15 @@ header {
     grid-column: 1 / 3; /* Ocupa as duas colunas */
     grid-row: 2 / 3; /* Segunda linha inteira */
     background-color: #fff;
+    transition: background-color 0.5s, color 0.5s; /* Transition for dark mode */
+}
+
+.dark-theme .chart {
+    background-color: #1e1e1e; /* Dark background for chart section */
+    color: #ffffff; /* White text for dark mode */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#chart-container {
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-}
-canvas {
-    width: 100% !important;
-    height: auto !important;
-}
-
-/* Estilos dos títulos */
-h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-}
-
-/* Estilos da câmera */
-#camera-container {
-    position: relative; /* Garante que os elementos filhos usem esta área como referência */
-    width: 100%;
-    height: 100%;
-}
-
-#camera_feed {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-
-/* Mensagem de erro da câmera */
-.camera-message {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    text-align: center;
-    font-size: 1.5em;
-    color: #ff4d4d;
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 10px;
-    border-radius: 8px;
-    display: none; /* Inicialmente escondida */
 }
 
 /* Estilos da tabela de alertas */
@@ -125,4 +123,9 @@ h2 {
 
 #alert_table th {
     background-color: #f2f2f2; /* Cor de fundo do cabeçalho da tabela */
+    transition: background-color 0.5s; /* Transition for dark mode */
+}
+
+.dark-theme #alert_table th {
+    background-color: #333333; /* Dark background for table header */
 }

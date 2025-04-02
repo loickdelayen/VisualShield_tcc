@@ -5,23 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Câmera e Alertas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            transition: background-color 0.5s, color 0.5s;
+        }
+        .dark-theme {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .dark-theme header {
+            background-color: #1f1f1f;
+        }
+        .dark-theme .camera, .dark-theme .alerts, .dark-theme .chart {
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+        .dark-theme #alert_table th {
+            background-color: #333333;
+        }
+    </style>
 </head>
 <body>
     <header>
         <img src="../static/img/visionshieldlogo.png" width="150px" height="150px" alt="Logo" />
         <h1>Vision Shield</h1>
+        <button id="theme-toggle">Toggle Dark Mode</button>
     </header>
     <div class="container">
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard de Câmera e Alertas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
 
         <!-- Câmera -->
         <div class="camera">
@@ -47,7 +57,6 @@
                     <!-- Os logs de alertas serão inseridos aqui via JavaScript -->
                 </tbody>
             </table>
-
         </div>
 
         <!-- Gráfico de Alertas -->
@@ -64,5 +73,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        const toggleButton = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        toggleButton.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+        });
+    </script>
 </body>
 </html>

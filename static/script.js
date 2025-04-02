@@ -1,3 +1,10 @@
+const toggleButton = document.getElementById('theme-toggle');
+const body = document.body;
+
+toggleButton.addEventListener('click', () => {
+    body.classList.toggle('dark-theme');
+});
+
 document.addEventListener('DOMContentLoaded', function () {
     // Função para atualizar o histórico de alertas
     function updateAlerts() {
